@@ -1,6 +1,11 @@
-"""
-RL Portfolio Evaluation with Monthly Refit
-Replicates the 2.0+ Sharpe performance from train_simple_refit.py
+"""RL portfolio evaluation with monthly refit.
+
+Loads the best PPO checkpoint, fine-tunes monthly on the most recent
+90 days, and evaluates on the following month. Produces metrics and
+visualisation artefacts in results/.
+
+Usage:
+    python -m rl_ppo.eval_rl_refit
 """
 import os
 # Suppress TensorFlow warnings before any imports

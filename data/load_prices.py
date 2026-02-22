@@ -1,10 +1,10 @@
+"""Lightweight ETF price loader.
+
+Extracts close prices from the full indicator CSV (or loads a
+pre-saved etf_prices.csv) and provides simple return helpers.
+"""
 import os
 import pandas as pd
-
-"""
-Mini Data Loader for ETF Prices
-Creates and returns simple ETF price data (similar to etf_prices.csv)
-"""
 
 def create_etf_prices():
     script_dir = os.path.dirname(os.path.abspath(__file__))

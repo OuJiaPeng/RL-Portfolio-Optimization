@@ -1,3 +1,10 @@
+"""Feature engineering and data splitting utilities.
+
+Builds the 274-dimensional state vector from raw ETF prices:
+stacked normalised log returns, multi-horizon returns, RSI-14,
+realised volatility, downside semi-vol, cross-sectional ranks,
+mean correlation, absolute returns, and cyclical time encodings.
+"""
 import pandas as pd
 import numpy as np
 from typing import List, Tuple, Optional, Union

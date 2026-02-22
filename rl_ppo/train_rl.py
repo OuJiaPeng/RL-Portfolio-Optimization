@@ -1,43 +1,39 @@
+"""PPO training script for portfolio optimization.
+
+Usage:
+    python -m rl_ppo.train_rl          (from project root)
+    python rl_ppo/train_rl.py          (from project root)
+"""
 import os
 import sys
 import warnings
 import random
-import time
 from pathlib import Path
+
 import numpy as np
 import pandas as pd
 import torch
+from torch import nn
 
-# Force-set TF env vars BEFORE any TF-related imports (even indirect)
-os.environ["TF_ENABLE_ONEDNN_OPTS"] = "0"  # disable oneDNN ops
-os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"   # 3 = ERROR only
+os.environ["TF_ENABLE_ONEDNN_OPTS"] = "0"
+os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
 os.environ.setdefault("KMP_WARNINGS", "0")
 
-# Optionally silence the Gym→Gymnasium compatibility warning from SB3
 warnings.filterwarnings(
     "ignore",
-    message="You provided an OpenAI Gym environment. We strongly recommend transitioning to Gymnasium",
+    message="You provided an OpenAI Gym environment",
     category=UserWarning,
     module="stable_baselines3.common.vec_env.patch_gym",
 )
 
 from stable_baselines3 import PPO
-from torch import nn
 from stable_baselines3.common.vec_env import DummyVecEnv, VecMonitor
 from stable_baselines3.common.callbacks import BaseCallback
 from stable_baselines3.common.logger import configure as sb3_configure_logger
 
-# Ensure project root on sys.path when running by file path
 PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
-
-warnings.filterwarnings(
-    "ignore",
-    message="You provided an OpenAI Gym environment.",
-    category=UserWarning,
-    module="stable_baselines3.common.vec_env.patch_gym",
-)
 
 from rl_ppo.config import Config
 from rl_ppo.env.env import PortfolioEnv
@@ -220,13 +216,8 @@ def main():
         'ortho_init': getattr(Config, 'ORTHO_INIT', True),
     }
 
-    def _linear_schedule(initial: float):
-        def fn(progress: float):  # progress goes from 1 -> 0 in SB3
-            return float(initial) * float(progress)
-        return fn
-
-    lr = _linear_schedule(Config.LEARNING_RATE) if getattr(Config, 'USE_LR_SCHEDULE', False) else Config.LEARNING_RATE
-    clip = _linear_schedule(Config.CLIP_RANGE) if getattr(Config, 'USE_CLIP_SCHEDULE', False) else Config.CLIP_RANGE
+    lr = Config.LEARNING_RATE
+    clip = Config.CLIP_RANGE
 
     model = PPO(
         'MlpPolicy',

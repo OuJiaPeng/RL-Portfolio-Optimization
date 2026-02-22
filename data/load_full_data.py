@@ -1,3 +1,10 @@
+"""Polygon.io data fetcher for ETF prices and technical indicators.
+
+Fetches OHLCV data plus RSI, MACD, EMA, and Bollinger Bands for each
+ticker in the ETF universe, then saves a merged CSV.
+
+Requires POLYGONIO_API_KEY in a .env file or environment variable.
+"""
 import os
 import pandas as pd
 from datetime import datetime, timedelta

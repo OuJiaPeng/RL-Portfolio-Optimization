@@ -1,3 +1,4 @@
+"""Custom MLP policy for the PPO agent."""
 from stable_baselines3.common.policies import ActorCriticPolicy
 import torch.nn as nn
 

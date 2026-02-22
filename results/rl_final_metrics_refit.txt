@@ -1,0 +1,17 @@
+=== RL Portfolio Final Metrics (Monthly Refit - 2.0+ Sharpe) ===
+
+Sharpe Ratio:         2.001206
+Cumulative Return:    13.06%
+Annualized Return:    28.63%
+CAGR:                 32.13%
+Annualized Volatility: 12.31%
+Max Drawdown:         -6.35%
+Calmar Ratio:         5.06
+Time Period:          0.44 years
+
+--- Concentration Metrics ---
+HHI (Concentration):  0.437
+Effective Holdings:   2.3
+Weight Entropy:       1.016
+Max Asset Weight:     54.0%
+Min Asset Weight:     0.1%

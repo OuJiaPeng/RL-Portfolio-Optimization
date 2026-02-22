@@ -1,6 +1,9 @@
 # Ignore everything at repo root except listed folders and this file
 /*
 !.gitignore
+!README.md
+!requirements.txt
+!Makefile
 
 !/analysis/
 !/analysis/**
@@ -17,18 +20,16 @@
 !/rl_ppo/
 !/rl_ppo/**
 
+!/models/
+!/results/
 
-!/OUTDATED_project_slides.pdf
-!/UPDATED_project_slides.pdf
-!/README.md
-!/requirements.txt
-
-
-# Ignore CSV files everywhere (including inside the included folders)
+# Large data files
 *.csv
 
-# Ignore Python cache and system files
+# Python
 __pycache__/
 *.pyc
+
+# OS
 .DS_Store
 Thumbs.db
