@@ -58,7 +58,7 @@ class MultiWindowEvalCallback(BaseCallback):
         self.patience = patience
         self.best_mean = -1e9
         self.best_step = 0
-        self.best_path = Path('./models/best_model.zip')
+        self.best_path = Path('./rl_ppo/outputs/best_model.zip')
 
     def _eval_window(self, feat: np.ndarray, prices: np.ndarray) -> dict:
         env = PortfolioEnv(feat, prices)
@@ -106,7 +106,7 @@ class MultiWindowEvalCallback(BaseCallback):
         if improve:
             self.best_mean = adj_mean
             self.best_step = step
-            os.makedirs('./models', exist_ok=True)
+            os.makedirs('./rl_ppo/outputs', exist_ok=True)
             self.model.save(self.best_path.as_posix())
         elif step - self.best_step > self.patience * self.eval_every:
             if self.verbose:
@@ -241,8 +241,8 @@ def main():
         policy_kwargs=policy_kwargs,
     )
 
-    os.makedirs('./results', exist_ok=True)
-    model.set_logger(sb3_configure_logger('./results', ['csv']))
+    os.makedirs('./rl_ppo/outputs', exist_ok=True)
+    model.set_logger(sb3_configure_logger('./rl_ppo/outputs', ['csv']))
 
     callbacks = [
         MultiWindowEvalCallback(window_slices, eval_every=int(getattr(Config, 'VAL_EVAL_FREQ', 10_000) or 10_000), patience=int(getattr(Config, 'VAL_EARLY_STOP_PATIENCE', 15) or 15)),
@@ -252,8 +252,7 @@ def main():
     ]
 
     model.learn(total_timesteps=Config.TOTAL_TIMESTEPS, callback=callbacks)
-    os.makedirs('./models', exist_ok=True)
-    model.save('./models/final_model')
+    model.save('./rl_ppo/outputs/final_model')
 
     # Evaluate on test split
     feat_test = feat_all.loc[test_df.index].values
@@ -267,7 +266,7 @@ def main():
     test_sharpe = _sharpe(rets)
     test_cum = float(np.prod(1.0 + rets) - 1.0)
     print(f"Test Sharpe (pre-refit): {test_sharpe:.3f} | Cumulative Return: {test_cum:.2%}")
-    with open('./results/test_metrics.txt', 'w', encoding='utf-8') as f:
+    with open('./rl_ppo/outputs/test_metrics.txt', 'w', encoding='utf-8') as f:
         f.write(f"test_sharpe,{test_sharpe}\n")
         f.write(f"test_cum_return,{test_cum}\n")
 

@@ -4,6 +4,7 @@
 !README.md
 !requirements.txt
 !Makefile
+!project_slides.pdf
 
 !/analysis/
 !/analysis/**
@@ -20,11 +21,11 @@
 !/rl_ppo/
 !/rl_ppo/**
 
-!/models/
-!/results/
+# Large data files (raw source, regenerable from API)
+data/*.csv
 
-# Large data files
-*.csv
+# Large simulation output (348 MB, regenerable)
+analysis/monte_carlo/mc_results.csv
 
 # Python
 __pycache__/

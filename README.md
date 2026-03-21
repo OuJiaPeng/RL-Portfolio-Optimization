@@ -64,17 +64,18 @@
 │   ├── refit_config.py     #   Monthly-refit overrides
 │   ├── train_rl.py         #   Training entry point
 │   ├── eval_rl_refit.py    #   Evaluation with monthly refit
-│   └── env/
-│       ├── env.py          #     Gymnasium environment
-│       └── policy.py       #     Custom MLP policy
+│   ├── env/
+│   │   ├── env.py          #     Gymnasium environment
+│   │   └── policy.py       #     Custom MLP policy
+│   └── outputs/            #   Models, metrics & result CSVs
 ├── markowitz/              # Rolling Markowitz baseline (notebook)
+│   └── outputs/            #   Metrics, weights & wealth CSVs
 ├── naive/                  # Equal-weight baseline (notebook)
+│   └── outputs/            #   Metrics & plots
 ├── analysis/               # Monte Carlo simulation & visualisations
-│   ├── mc/
+│   ├── monte_carlo/
 │   ├── visuals/
 │   └── feature_analysis/
-├── models/                 # Saved model checkpoints
-├── results/                # Metrics & daily result CSVs
 ├── Makefile
 ├── requirements.txt
 └── README.md

@@ -2,7 +2,7 @@
 
 Loads the best PPO checkpoint, fine-tunes monthly on the most recent
 90 days, and evaluates on the following month. Produces metrics and
-visualisation artefacts in results/.
+visualisation artefacts in rl_ppo/outputs/.
 
 Usage:
     python -m rl_ppo.eval_rl_refit
@@ -119,9 +119,9 @@ def calculate_metrics(returns, weights, dates):
 
 def create_visualizations(returns, weights, dates, metrics):
     """Create comprehensive visualizations"""
-    results_dir = Path("./results")
-    results_dir.mkdir(exist_ok=True)
-    
+    results_dir = Path("./rl_ppo/outputs")
+    results_dir.mkdir(parents=True, exist_ok=True)
+
     # 1. Wealth curve (matching Markowitz style)
     wealth = np.cumprod(1.0 + returns)
     fig, ax = plt.subplots(figsize=(12, 6))
@@ -181,8 +181,8 @@ def create_visualizations(returns, weights, dates, metrics):
 
 def save_results(returns, weights, dates, metrics):
     """Save detailed results to files"""
-    results_dir = Path("./results")
-    
+    results_dir = Path("./rl_ppo/outputs")
+
     # Save comprehensive metrics
     with open(results_dir / 'rl_final_metrics_refit.txt', 'w') as f:
         f.write("=== RL Portfolio Final Metrics (Monthly Refit - 2.0+ Sharpe) ===\n\n")

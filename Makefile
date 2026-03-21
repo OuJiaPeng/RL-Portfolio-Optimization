@@ -1,6 +1,6 @@
 .PHONY: train eval clean
 
-# Train the PPO agent from scratch (writes best_model.zip to models/)
+# Train the PPO agent from scratch (writes best_model.zip to rl_ppo/outputs/)
 train:
 	python -m rl_ppo.train_rl
 

@@ -31,4 +31,4 @@ class RefitConfig:
     MIN_REFIT_DAYS: int = 40          # Fallback to full history if insufficient
     
     # Model paths
-    BASE_MODEL_PATH: str = "./models/best_model.zip"
+    BASE_MODEL_PATH: str = "./rl_ppo/outputs/best_model.zip"
