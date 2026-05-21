@@ -2,6 +2,10 @@
 
 > PPO-based portfolio allocator for 10 ETFs with a 274-dimensional state space, achieving **Sharpe 2.00** vs 1.75 rolling Markowitz on 2025 H1 out-of-sample data.
 
+Allocation decisions from this module determine the positions that an execution layer
+then trades efficiently — see [RL-Optimal-Liquidation](https://github.com/OuJiaPeng/RL-Optimal-Liquidation)
+for the downstream execution agent.
+
 ---
 
 ## Results
@@ -12,6 +16,8 @@
 | Markowitz | 1.75 | 31.68 % | 18.06 % | −5.80 % | 40.56 % |
 | Naive (Equal Wt) | 0.82 | 12.67 % | 15.44 % | −12.05 % | 16.48 % |
 | SPY (Buy & Hold) | 0.06 | 1.49 % | 26.48 % | −19.00 % | 0.78 % |
+
+![Overlayed wealth curves on 2025 H1 OOS](analysis/visuals/overlay_wealth_curves_with_spy.png)
 
 **Key take-aways**
 
@@ -87,8 +93,8 @@
 
 ```bash
 # 1. Clone & install
-git clone https://github.com/OuJiaPeng/DRL-portfolio-optimization.git
-cd DRL-portfolio-optimization
+git clone https://github.com/OuJiaPeng/RL-Portfolio-Optimization.git
+cd RL-Portfolio-Optimization
 pip install -r requirements.txt
 
 # 2. Train the PPO agent
